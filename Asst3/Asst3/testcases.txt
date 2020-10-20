@@ -1,0 +1,109 @@
+testcases.txt
+
+AUTHORS :
+	Jonathan Konopka
+		NETID : jk1549
+		RUID : 178005220
+	Nicholas Rytelewski
+		NETID : nr548
+		RUID : 197000952
+
+|--------------------------------------------------------------------------------------|
+
+TEST CASES :
+
+	This file contains a more thorough set of test cases for our program with the expected
+	output as a result of executing that command. These command outputs are the expected outcome
+	IF the only commands that were run were these commands applied in this linear fashion.
+	By this, we mean that the expected output for 'Commit' here is dependant on the previous
+	commands (add), create, etc
+
+	Commmands To Test : 'configure’, ‘checkout’, ‘update’, ‘upgrade’, ‘commit’, 
+		            ‘push’, 'create', ‘destroy’, ‘add’, ‘remove’, 
+			    ‘currentversion’, ‘history’, and ‘rollback.
+
+|--------------------------------------------------------------------------------------|
+
+STARTING SERVER : ./WTFserver 9000
+	EXPECTED SERVER OUTPUT : Server should output the message "WTF Server Started" if the
+			         port number was valid and was within the bounds of 0 - 65535
+
+
+
+CONFIGURE : ./WTF configure 127.0.0.1 9000
+	EXPECTED OUTPUT : "Client Was Successfully Configured"
+
+
+
+CREATE : ./WTF create xxx
+	EXPECTED OUTPUT : "A New Project Was Created With The Name 'xxx'"
+
+
+
+ADD : ./WTF add xxx 1.txt
+	EXPECTED OUTPUT : "Successfully Added '1.txt' To 'xxx'."
+   			  The client-side manifest would then have an entry added containing that files version number, name, and hash.
+
+
+
+REMOVE ./WTF remove xxx 1.txt
+	EXPECTED OUTPUT : "Removed '1.txt' From 'xxx'."
+   			  The client-side manifest would then have an entry removed that containing that files version number, name, and hash.
+
+
+
+COMMIT : ./WTF commit xxx
+	AT THIS POINT, let's say that we have NOT done the remove action on 'xxx'... Which means that the manifest WOULD contain 1.txt's entry ONLY.
+	EXPECTED OUTPUT : "Starting Commit...
+			  	A ./xxx/1.txt
+			   Sending The Server The Commit File...
+			   Commit Completed Successfully."
+
+
+
+COMMIT : ./WTF push xxx
+	EXPECTED OUTPUT (If Project Name Exists) : "Starting Push...
+						    Sending The Server The .Commit File.
+						   .Commit Succesfully Sent To Server.
+						    Sending The Server '1.txt' (THIS WOULD BE WHATEVER FILE IS REQUESTED)
+						    Server Completed Push"
+
+
+
+CURRENTVERSION : ./WTF currentversion xxx
+	EXPECTED OUTPUT : "Project Version #1
+			  	./xxx/1.txt (Version #1)
+			  |   END OF CURRENT VERSION REPORT   |"
+
+
+
+ROLLBACK : ./WTF rollback xxx 0
+	EXPECTED OUTPUT : "Server Completed Rollback To Version #0"
+
+
+
+UPDATE : ./WTF update xxx
+	EXPECTED OUTPUT : "	D ./xxx/1.txt
+			  Project Updated."
+	  
+
+
+UPGRADE : ./WTF upgrade xxx
+	EXPECTED OUTPUT : "Deleted 1.txt."
+
+
+
+HISTORY : ./WTF history xxx
+	EXPECTED OUTPUT : "The Project Requested Does Not Have A Commit History."
+	(This makes sense as we have just rolled back to version zero... where no commits have been completed yet. This version is a fresh copy of the project).
+
+
+
+
+DESTROY : ./WTF destroy xxx
+	EXPECTED SERVER OUTPUT :
+		"Client Requested DESTROY
+			Destroying './xxx/.Manifest'.
+			Destroying './xxx/.Commit'.
+				...(Continuing with each file... too many to list)
+		 Destroyed Project 'xxx'"

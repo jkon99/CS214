@@ -1,0 +1,146 @@
+AUTHORS :
+	Jonathan Konopka
+		NETID : jk1549
+		RUID : 178005220
+	Nicholas Rytelewski
+		NETID : nr548
+		RUID : 197000952
+
+	|--------------------------------------------------------------------------------------|
+
+	TEST PLAN SYNOPSIS :
+
+		Our goal with this projects tests cases was to have varying files with a 
+		sizeable amount of tokens to be used so that our programs output would be
+		accurate, even with a sizeable load on it.
+
+		NOTE : Formatting for files may be odd since it is in this testcase document.
+		       I tried to make the file contents all line up.
+
+	|--------------------------------------------------------------------------------------|
+
+					SMALLER SAMPLE SIZE
+
+	DIRECTORY :
+		- ./1 (DIRECTORY TO BE SUPPLIED)
+			- 1.txt
+			- 2.txt
+			- 3.txt
+	
+		FILE "1.txt" :
+			"1 2 3 4 5 "
+		FILE "2.txt" :
+			"1 2 3 4 5
+			 1 2 3 4 5
+			 1 2 3 4 5
+			 1 2 3 4 5 "
+		FILE "3.txt" :
+			"1 2 3 4 5 
+			 6 7 8 9 10"
+	
+		The amount of tokens in these files gives use a small sample to work with in 
+		recursive mode. 
+
+			      |----------------------------------------------|
+
+	"-R -b ./1" TEST OUTPUT : 
+
+		FILE "HuffmanCodebook" :
+			"^
+			1101	1
+			0	^s
+			100	2
+			1110	3
+			1100	4
+			1111	5
+			1010	^n
+			1011110	6
+			1011111	7
+			101100	8
+			101101	9
+			101110	10
+			
+			"		
+		
+	"-R -c ./1 HuffmanCodebook" TEST OUTPUT : 
+
+		FILE "1.txt.hcz" :
+			"110101000111001100011110"
+		FILE "2.txthcz" :
+			"11010100011100110001111101011010100011100110001111101011010100011100110001111101011010100011100110001111"
+		FILE "3.txthcz" :
+			"1101010001110011000111101010101111001011111010110001011010101110"
+
+	"-R -d ./1 HuffmanCodebook" TEST OUTPUT : 
+
+		FILE "1.txt" :
+			"1 2 3 4 5 "
+		FILE "2.txt" :
+			"1 2 3 4 5
+			 1 2 3 4 5
+			 1 2 3 4 5
+			 1 2 3 4 5 "
+		FILE "3.txt" :
+			"1 2 3 4 5 
+			 6 7 8 9 10"
+
+	These function outputs are identical when run without recursive mode / run on specific files
+		
+	|--------------------------------------------------------------------------------------|
+
+					BIGGER SAMPLE SIZE
+
+	DIRECTORY :
+		- ./2 (DIRECTORY TO BE SUPPLIED)
+			- ONE.txt
+			- TWO.txt
+			- THREE.txt
+
+	The following website was used to generate the tokens in each of the 3 files :
+	http://www.unit-conversion.info/texttools/random-string-generator/
+
+	We set the allowed characters to "xo", number of strings to 100, and length to 3.
+	This generated 100 permutations for each file with strings like "xxx", "xox", "oxo"... etc.
+	We did this three times and made each file the output. They are unfortunately too long to include
+	the full text :(
+	
+			      |----------------------------------------------|
+
+	"-R -b ./2" TEST OUTPUT : 
+	
+		FILE "HuffmanCodebook" :
+			"^
+			 1001	oxx
+			 0	^n
+			 1000	ooo
+			 1100	xoo
+			 1111	oxo
+			 1011	oox
+			 1101	xox
+			 1110	xxo
+			 1010	xxx
+			
+			"		
+
+	"-R -c ./2 HuffmanCodebook" TEST OUTPUT : 
+
+		FILE "ONE.txt.hcz" :
+"1001010000110001111011110100001011011010100001111011100101001000011000100101101011110101001100010110101101010011100110001001010010111001001010100100101010011100111001110010100111101110011110111001110011010110101101011110110101000011000100101011011010111001101011010101101100011010101101000011100100101100011110110001000011000110001001010000111101111011010101001111011010101101110010100110001010011100101101111010000101001011010100101101011011010111001111011010101001000011110100101100011000111001111"
+		FILE "TWO.txthcz" :
+"10010111101101010000100101110010010110001100011100100101110010010110001010011110111001100010110100101110011100110101101010000101001111010110101001000011000110101100011100101001110010010111001111010110110001111011010111101000010010110101111010000101101001011100101101111010010110001001010100111101010011110111001101010000101001011010110110001000011000101001111011110111101100010110111001101011010111101111011110110101001010100101101000010110110101000010100101101101010010111001100011010101001011010110"
+		FILE "THREE.txthcz" :
+"10010100001100011110111101000010110110101000011110111001010010000110001001011010111101010011000101101011010100111001100010010100101110010010101001001010100111001110011100101001111011100111101110011100110101101011010111101101010000110001001010110110101110011010110101011011000110101011010000111001001011000111101100010000110001100010010100001111011110110101010011110110101011011100101001100010100111001011011110100001010010110101001011010110110101110011110110101010010000111101001011000110001110011110"
+
+	"-R -d ./2 HuffmanCodebook" TEST OUTPUT : 
+
+	(Files are too long to include) Original files were returned. 
+	Original file can be viewed for testing by decoding the outputs of the .hcz files above
+
+	|--------------------------------------------------------------------------------------|
+
+	Overall, our tests were successful. We had some issues with segmentation faults towards the 
+	end on the iLab machines while the code was running on our machines. These tests were run in
+	recursive mode as examples above, but when given a specific file and with the -R flag removed,
+	the output for that specific file remains unchanged!
+
+

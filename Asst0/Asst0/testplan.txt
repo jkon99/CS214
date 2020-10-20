@@ -1,0 +1,88 @@
+AUTHORS :
+	Jonathan Konopka
+		NETID : jk1549
+		RUID : 178005220
+	Nicholas Rytelewski
+		NETID : nr548
+		RUID : 197000952
+
+	|----------------------------------------------------------------------------------------------------------|
+
+		TEST PLAN SYNOPSIS :
+	
+		Our plan in testing was to cover ground on many different scenarios that we may encounter when our program is packaged and run. 
+		These 9 test cases take into account cases where the input file would contain null tokens, newlines, tabs, spaces, and 
+		either a dataset containing all strings or all integers. Our goal was to make each case correctly end up sorting the contents of the file
+		upon runtime completion given the desired sorting flag.
+
+	|----------------------------------------------------------------------------------------------------------|
+
+		FILE "a.txt" :
+
+			"hi,there, every,     one"
+
+		This was the test case given to us in the assignment description.
+		Out goal in this test case to have a matching output as the one provided in the writeup.
+		
+	|----------------------------------------------------------------------------------------------------------|
+
+		FILE "b.txt" :
+
+			"123, 14, 510     , 1"
+
+		In this test case, our goal was to test our sorting functions and linked list with a small sample of integers.
+		After value 510, we had 5 spaces to make sure things were working correctly with multiple whitespace characters in succession.
+
+	|----------------------------------------------------------------------------------------------------------|
+		FILE "c.txt" :
+
+			"4, 3, 9, 1, 6, 7, 3, 2, 5, 7, 2, 1, 999, 3"
+
+		In this test case, our goal was to test our sorting functions and linked list with a LARGER sample of integers.
+		This case had less emphasis on a weird file structure (many whitespaces like '\n' and '\t') and had more emphasis on making sure the numbers 				were in order with a larger amount of data.
+
+	|----------------------------------------------------------------------------------------------------------|
+
+		FILE "d.txt" :
+
+			"this, is, a, test, of, formatting, correctly
+			 "
+	
+		This test case moved our focus away from integers and back onto strings of varrying length. One newline character was included at the end of
+		"correctly" to test if a whitespace character at the end of our buffer would cause any issues.
+
+	|----------------------------------------------------------------------------------------------------------|
+
+		FILE "e.txt" :
+
+			"bro, do, you,     even, format,     correctly"
+		
+		This test case is much like the test case of "d.txt"; many strings in succession were tested with tab characters between a few.
+		Again, this test case was more to see if any issues would happen tokenizing the file with whitespace characters in a string sample.
+			
+	|----------------------------------------------------------------------------------------------------------|
+
+		FILE "f.txt" :
+
+			"b"
+		
+		This test case was simply used to see if our program could recognize that we were tokenizing a STRING given one character. 
+
+	|----------------------------------------------------------------------------------------------------------|
+
+		FILE "g.txt" :
+
+			"3"
+		
+		This test case, like "f.txt", was used to see if our program could recognize that we were tokenizing an INTEGER given one character.
+
+
+	|----------------------------------------------------------------------------------------------------------|
+	
+		FILE "h.txt" :
+
+			",3     5,1"
+		
+		This test case was used to make sure null tokens were being recognized with an integer data set. Testing this file also let us know that 		whitespaces were being ignored (as it should) in an integer set.
+
+	|----------------------------------------------------------------------------------------------------------|

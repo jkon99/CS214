@@ -1,0 +1,50 @@
+testplan.txt
+
+AUTHORS :
+	Jonathan Konopka
+		NETID : jk1549
+		RUID : 178005220
+	Nicholas Rytelewski
+		NETID : nr548
+		RUID : 197000952
+
+|--------------------------------------------------------------------------------------|
+
+TEST PLAN SYNOPSIS :
+
+	Our goal with tests cases was to create different projects with our program
+	and perform different operations on them. In testing, the main things we tested
+	was committing / pushing and updating / upgrading as these were the more 'taxing'
+	functions for the server and client to run through. Generally, we wanted to create 
+	a project, add and remove files to it with 'add' and 'remove', then send it to the
+	server by doing a 'commit' and then a 'push'. 
+
+	Afterwards, we would manually take a backup of an older version of the project from
+	the server to replace with the clients project version (As in, we would be reverting
+	the clients copy of the file to an earlier version of the project). At this point, our 
+	version of the manifest would be less than the servers version, so we would be able
+	to do the 'update' and 'upgrade' commands... which we did. This is normally how we 
+	tested that our commands did indeed work.
+
+	In our WTFtest file, we implemented this same sort of workflow, with a mix of 
+	other operations like 'history', 'currentversion', and 'destroy' to make sure 
+	things worked. 
+
+|--------------------------------------------------------------------------------------|
+
+WTFtest :
+
+	We made our WTFtest file take one single argument when it is called; a port number.
+	Essentially, we created a char array named 'command' that we would pass commands to
+	with the strcat(command, <OUR COMMAND TEXT HERE>) command. These commands would be
+	executed with system(command);
+
+	Specifically for this testing file to run successfully, the WTFserver, WTF, and WTFtest
+	executables need to be in the same directory. This is because our WTFtest executable does
+	system calls (touch ONE.txt) based on the root directory it is in to do things like 
+	creating files that can be added with the 'add' command. We were really not too sure
+	how to create these files otherwise
+
+	The WTFtest file basically illustrates the synopsis as stated above in a linear fashion,
+	having each command come one after the other.
+
